@@ -1,0 +1,123 @@
+---
+title: FUN-Forum
+subtitle: Sitzung 0 - Semesterstart
+author: Samuel Merk
+footer: Samuel Merk
+#institute: Institut für Empirische Bildungsforschung
+logo: img/ph-logo.svg
+picture: img/KA.jpeg
+date: today
+lang: de
+date-format: long
+format: rlille-revealjs
+lightbox: true
+bibliography: references.bib
+csl: apa.csl
+---
+
+## Überblick {.smaller .center}
+
+|  {{< iconify fa-solid:chalkboard-teacher >}} | Rückblick Konferenz         |
+|------------------------------------------:|:--------------------------|
+|  {{< iconify solar:telescope-bold >}} | Ausblick auf das kommende Semester         |
+| {{< iconify fa7-solid:calendar-alt >}} | Aktuelles: Stellenänderungen; Antrag; FUN-Forum |
+|          {{< iconify fa6-solid:money-bill-wave >}} | AQUA-d I Kassensturz |
+|        {{< iconify material-symbols:graph-3 >}} | Daily Dose of Causal Inference   |
+
+: {#tbl-agenda tbl-colwidths="\[15,285\]"}
+
+```{=html}
+<!-- style the agenda table -->
+
+<style>
+#tbl-agenda table th {
+font-weight: normal !important;
+border: none !important;
+}
+
+#tbl-agenda table td {
+font-weight: normal !important;
+border: none !important;
+}
+</style>
+```
+::: footer
+{{< iconify academicons:open-materials >}} Folien cc-by {{< iconify academicons:creative-commons-by >}} unter Kurzlink
+:::
+
+# Rückblick Konferenz {{< iconify fa-solid:chalkboard-teacher >}}
+## Rückblick Konferenz {{< iconify fa-solid:chalkboard-teacher >}}
+* Was habt ihr mitgenommen (persönliche Highlights/Lowlights)?
+* Wo seht ihr Stärken und Schwächen des gewählten **Formats** (eingeladene Symposien)?
+* Welche konkrete organisatorische Learnings habt für uns?
+
+# Aktuelles {{< iconify fa7-solid:calendar-alt >}} 
+## Stellenänderungen
+* Florian hat angefangen
+* Theresa hat Stipendium abgegeben und arbeitet nur 50% Koordination und 25% Lehre in der Psychologie
+
+## Antrag AQUA-d II
+* Besten Dank für die Beteiligung bei der Erstellung
+* Ablauf des Bewerbungsprozesses, falls Bewilligung kommt
+* Ablauf des geplanten Qualifikations- & Betreuungsprogramms in AQUA-d II
+
+## FUN-Forum
+* Termine
+* Texte
+* Offene Werkstätten
+
+# AQUA-d I: Kassensturz {{< iconify fa6-solid:money-bill-wave >}} 
+# Daily Dose of Causal Inference {{< iconify material-symbols:graph-3 >}} 
+## Daily Dose of Causal Inference {{< iconify material-symbols:graph-3 >}} 
+Meine Beobachtung auf der Konferenz: 
+
+1) Durchweg hohe Qualität der Präsentationen, der Fragen und DIskussion. 
+2) Am meisten Luft nach oben gibt es in Punkto interner Validität (*Inwiefern lassen sich Zusammenhänge zwischen UV und AV als kausal interpretieren*)
+
+> Diskutiert bitte mit der Nachbarin: Welche Aspekte von Design und Statistik generieren im Allgemeinen höhere interne Validität? Welche Teile eurer Studien haben hohe, welche haben neidrige interne Validität?
+
+
+
+## Daily Dose of Causal Inference {{< iconify material-symbols:graph-3 >}} 
+Welche der folgenden Aussagen sind korrekt?
+
+- [ ] Sind zwei Variablen kausal abhängig, zeigt sich eine Korrelation dieser in den Daten 
+- [ ] Sind zwei Variablen kausal unabhängig, zeigt sich keine Korrelation dieser in den Daten
+- [ ] Eine statistisch signifikante Korrelation zweier Variablen impliziert eine kausale Beziehung dieser beiden Variablen.
+- [ ] Statistische Evidenz für eine Nullkorrelation zweier Variablen impliziert das Fehlen einer kausalen Beziehung dieser beiden Variablen.
+
+
+## Causal Inference: Bsp. {.smaller .scrollable}
+Angenommen, Forschende erfassen die Fähigkeiten von Schüler:innen in den drei Subdomänen `Arithmetik` (ca. Klasse 1-5), `Bruchrechnung` (ca. Klasse 5-6) und `Quadratische Gleichungen` (ca. Klasse 8), wobei theoretisch angenommen werden kann, dass ein hinreichendes Verständnis der Arithmetik eine notwendige Voraussetzung eine kompetente Bruchrechnung ist und diese wiederum eine notwendige Voraussetzung für kompetentes Anwenden quadratischer Gleichungen. 
+
+```{r}
+#| echo: false
+library(tibble)
+library(readr)
+set.seed(25051982)
+data <-
+  tibble(
+    Arithmetik = rnorm(500, mean = 100, sd = 15),
+    Bruchrechnung = Arithmetik * 0.6 + rnorm(500, mean = 0, sd = 10),
+    Quadratische_Gleichungen = Bruchrechnung *
+      0.7 +
+      rnorm(500, mean = 0, sd = 10),
+    Bruch_Ueberdurchschn = Bruchrechnung > mean(Bruchrechnung)
+  )
+write_csv(data, "data.csv")  
+```
+
+Diese drei Variablen werden von 500 Schüler:innen erfasst und sind in diesem Datensatz enthalten.   
+Höhere numerische Werte bedeuten jeweils höhere Ausprägungen der Kompetenz.
+
+1) Plottet bitte bivariate Streudiagramme aller Variablenkombinationen
+2) Berechnet bitte bivariate Korrelationen aller Variablenkombinationen
+3) Fittet bitte
+    * drei einfache lineare Regressionsmodelle, 
+    * jeweils mit der abhängigen Variable `Quadratische Gleichungen`, mit 
+        a) nur `Arithmetik` als Prädiktor,
+        b) nur `Bruchrechnung` als Prädiktor, 
+        c) `Arithmetik` & `Bruchrechnung` als Prädiktoren.
+4) Beurteilt, inwiefern die Daten Evidenz für die Annahme der oben beschriebenen Abhängigkeiten darstellen.
+
+
